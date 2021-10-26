@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/testdb?currentSchema=public
+    username: user1
+    password: pw123456
+  liquibase:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  main:
+    cloud-platform: kubernetes
+    banner-mode: off
+  thymeleaf:
+    cache: false # 開發方便不 cache
+
+server:
+  shutdown: graceful # 優雅下線
+  error:
+    include-message: always
+    include-binding-errors: always
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    com.example.demo: DEBUG
+
+# 設定金鑰位置
+authserver:
+  key-path: file:key/key.pem
+  issuer: "http://auth-server:8080"

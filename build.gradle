@@ -1,0 +1,76 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	// id "com.github.hierynomus.license" version "0.15.0"
+	id 'com.github.jk1.dependency-license-report' version '2.0'
+	id "ca.cutterslade.analyze" version "1.8.1"
+	id 'com.diffplug.spotless' version '5.11.1'
+}
+
+group = 'com.example'
+version = '0.0.1'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	// UnitTest
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	// Additional
+	implementation 'org.springframework.security:spring-security-oauth2-authorization-server:0.2.0'
+	implementation 'com.nimbusds:nimbus-jose-jwt:9.10.1'
+	implementation 'org.bouncycastle:bcjmail-jdk15to18:1.69'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+// ./gradlew spotlessApply
+spotless {
+	encoding 'UTF-8' // all formats will be interpreted as UTF-8
+	java {
+		target 'src/**/*.java'
+		toggleOffOn()
+		googleJavaFormat()
+		removeUnusedImports()
+		importOrder()
+		// trimTrailingWhitespace()
+		// endWithNewline()
+	}
+	sql {
+		target 'src/**/*.sql'
+		dbeaver()
+	}
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
+	format 'xml', {
+		target 'src/**/*.xml'
+		eclipseWtp('xml')
+	}
+}

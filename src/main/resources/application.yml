@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: auth
+  liquibase:
+    enabled: false
+  jpa:
+    show-sql: false
+  main:
+    cloud-platform: kubernetes
+    banner-mode: console
+  profiles:
+    active:
+      - dev

@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+
+  postgres:
+    image: 'postgres:13.3'
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: 'user1'
+      POSTGRES_PASSWORD: 'pw123456'
+      POSTGRES_DB: 'testdb'
+    volumes:
+      - dbData:/var/lib/postgresql/data
+    networks:
+      - privateBridge
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: 20m
+        max-file: '2'
+
+  # app:
+  #   image: "spike19820318/oauthserver:1.0.0"
+  #   restart: always
+  #   environment:
+  #     spring.profiles.active : 'dev'
+  #   ports:
+  #     - '80:8080'
+  #     - '9000:9000'
+  #   volumes:
+  #     - $PWD/config/:/workspace/config/
+  #     - $PWD/key/:/workspace/key/
+  #   networks:
+  #     - privateBridge
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   logging:
+  #     driver: json-file
+  #     options:
+  #       max-size: 20m
+  #       max-file: '2'
+
+volumes:
+  dbData:
+
+networks:
+  privateBridge:
+    driver: bridge
