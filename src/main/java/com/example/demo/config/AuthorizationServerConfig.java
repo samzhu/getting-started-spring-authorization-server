@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-import com.example.demo.repositories.Oauth2AuthorizationEntityRepository;
 import com.example.demo.repositories.Oauth2ClientAuthenticationMethodEntityRepository;
 import com.example.demo.repositories.Oauth2ClientEntityRepository;
 import com.example.demo.repositories.Oauth2ClientGrantTypeEntityRepository;
@@ -11,7 +10,6 @@ import com.example.demo.repositories.ResourceScopeEntityRepository;
 import com.example.demo.repositories.UserAccountEntityRepository;
 import com.example.demo.repositories.UserGroupEntityRepository;
 import com.example.demo.repositories.UserGroupMemberEntityRepository;
-import com.example.demo.security.CustomOAuth2AuthorizationService;
 import com.example.demo.security.CustomOAuth2Token;
 import com.example.demo.security.CustomRegisteredClientRepository;
 import com.example.demo.security.CustomUserDetailsAuthenticationProvider;
@@ -29,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,6 +37,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
@@ -115,25 +115,38 @@ public class AuthorizationServerConfig {
   }
 
   @Bean
+	public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,RegisteredClientRepository registeredClientRepository) {
+		return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+	}
+  
+  // @Bean
+	// public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate,
+	// 		RegisteredClientRepository registeredClientRepository) {
+	// 	DefaultLobHandler lobHandler = new DefaultLobHandler();
+	// 	// lobHandler.setWrapAsLob(true);
+	// 	return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository, lobHandler);
+	// }
+
+  @Bean
   public AbstractUserDetailsAuthenticationProvider abstractUserDetailsAuthenticationProvider(
       UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
     return new CustomUserDetailsAuthenticationProvider(userDetailsService, passwordEncoder);
   }
 
-  @Bean
-  public OAuth2AuthorizationService authorizationService(
-      Oauth2AuthorizationEntityRepository oauth2AuthorizationEntityRepository,
-      RegisteredClientRepository registeredClientRepository) {
-    OAuth2AuthorizationService OAuth2AuthorizationService = new CustomOAuth2AuthorizationService(
-        oauth2AuthorizationEntityRepository, registeredClientRepository);
-    return OAuth2AuthorizationService;
-  }
+  // @Bean
+  // public OAuth2AuthorizationService authorizationService(
+  //     Oauth2AuthorizationEntityRepository oauth2AuthorizationEntityRepository,
+  //     RegisteredClientRepository registeredClientRepository) {
+  //   OAuth2AuthorizationService OAuth2AuthorizationService = new CustomOAuth2AuthorizationService(
+  //       oauth2AuthorizationEntityRepository, registeredClientRepository);
+  //   return OAuth2AuthorizationService;
+  // }
 
-  @Bean
-  public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,
-      RegisteredClientRepository registeredClientRepository) {
-    return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
-  }
+  // @Bean
+  // public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,
+  //     RegisteredClientRepository registeredClientRepository) {
+  //   return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+  // }
 
   @Bean
   public JWKSource<SecurityContext> jwkSource() throws Exception {

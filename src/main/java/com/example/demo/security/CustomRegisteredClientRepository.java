@@ -83,7 +83,8 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
     String oauth2ClientId = oauth2Client.getId();
     // Client account
     String clientId = oauth2Client.getClientId();
-
+    // 取出有幾種驗證方式 ex: client_secret_post
+    // 可參考 https://github.com/spring-projects/spring-security/blob/main/oauth2/oauth2-core/src/main/java/org/springframework/security/oauth2/core/ClientAuthenticationMethod.java
     List<Oauth2ClientAuthenticationMethodEntity> oauth2ClientAuthenticationMethods =
         oauth2ClientAuthenticationMethodEntityRepository.findByOauth2ClientId(oauth2Client.getId());
     List<Oauth2ClientGrantTypeEntity> oauth2ClientGrantTypes =

@@ -1,21 +1,21 @@
 version: '3.8'
 services:
 
-  postgres:
-    image: 'postgres:13.3'
+  postgres: # https://hub.docker.com/_/postgres
+    image: 'postgres:15.1-alpine'
     restart: always
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: 'user1'
       POSTGRES_PASSWORD: 'pw123456'
-      POSTGRES_DB: 'testdb'
+      POSTGRES_DB: 'devdb'
     volumes:
       - dbData:/var/lib/postgresql/data
     networks:
       - privateBridge
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -d devdb -U user1"]
       interval: 10s
       timeout: 5s
       retries: 5
