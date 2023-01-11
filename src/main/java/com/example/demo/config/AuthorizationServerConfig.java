@@ -122,9 +122,9 @@ public class AuthorizationServerConfig {
   // @Bean
 	// public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate,
 	// 		RegisteredClientRepository registeredClientRepository) {
-	// 	DefaultLobHandler lobHandler = new DefaultLobHandler();
+	// 	// DefaultLobHandler lobHandler = new DefaultLobHandler();
 	// 	// lobHandler.setWrapAsLob(true);
-	// 	return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository, lobHandler);
+	// 	return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
 	// }
 
   @Bean

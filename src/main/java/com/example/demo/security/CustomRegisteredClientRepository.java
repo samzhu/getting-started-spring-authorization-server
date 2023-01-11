@@ -138,14 +138,14 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
     Oauth2ClientSettingEntity requireProofKey =
         this.findClientSetting(
             oauth2ClientId,
-            OAuthSettingNames.Client.TYPE,
-            OAuthSettingNames.Client.Property.REQUIRE_PROOF_KEY);
+            OAuthSettingNames.Client.PROPERTYTYPE,
+            OAuthSettingNames.Client.PROPERTYNAME_REQUIRE_PROOF_KEY);
     //
     Oauth2ClientSettingEntity requireAuthorizationConsent =
         this.findClientSetting(
             oauth2ClientId,
-            OAuthSettingNames.Client.TYPE,
-            OAuthSettingNames.Client.Property.REQUIRE_AUTHORIZATION_CONSENT);
+            OAuthSettingNames.Client.PROPERTYTYPE,
+            OAuthSettingNames.Client.PROPERTYNAME_REQUIRE_AUTHORIZATION_CONSENT);
 
     //
     ClientSettings clientSettings =
@@ -160,23 +160,23 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
     Oauth2ClientSettingEntity idTokenSignatureAlgorithm =
         this.findClientSetting(
             oauth2ClientId,
-            OAuthSettingNames.Token.TYPE,
-            OAuthSettingNames.Token.Property.ID_TOKEN_SIGNATURE_ALGORITHM);
+            OAuthSettingNames.Token.PROPERTYTYPE,
+            OAuthSettingNames.Token.PROPERTYNAME_ID_TOKEN_SIGNATURE_ALGORITHM);
     Oauth2ClientSettingEntity accessTokenTimeToLive =
         this.findClientSetting(
             oauth2ClientId,
-            OAuthSettingNames.Token.TYPE,
-            OAuthSettingNames.Token.Property.ACCESS_TOKEN_TIME_TO_LIVE);
+            OAuthSettingNames.Token.PROPERTYTYPE,
+            OAuthSettingNames.Token.PROPERTYNAME_ACCESS_TOKEN_TIME_TO_LIVE);
     Oauth2ClientSettingEntity refreshTokenTimeToLive =
         this.findClientSetting(
             oauth2ClientId,
-            OAuthSettingNames.Token.TYPE,
-            OAuthSettingNames.Token.Property.PREFRESH_TOKEN_TIME_TO_LIVE);
+            OAuthSettingNames.Token.PROPERTYTYPE,
+            OAuthSettingNames.Token.PROPERTYNAME_REFRESH_TOKEN_TIME_TO_LIVE);
     Oauth2ClientSettingEntity reuseRefreshTokens =
         this.findClientSetting(
             oauth2ClientId,
-            OAuthSettingNames.Token.TYPE,
-            OAuthSettingNames.Token.Property.REUSE_REFRESH_TOKENS);
+            OAuthSettingNames.Token.PROPERTYTYPE,
+            OAuthSettingNames.Token.PROPERTYNAME_REUSE_REFRESH_TOKENS);
     //
 
     TokenSettings tokenSettings =
