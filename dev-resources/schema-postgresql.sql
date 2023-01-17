@@ -6,16 +6,16 @@ CREATE TABLE scope (
 	resource varchar(50) NOT NULL,
     scope varchar(50) NOT NULL,
     description varchar(50) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
 -- Constraint for table scope
 -- ----------------------------
 ALTER TABLE scope ADD CONSTRAINT pk_scope_id PRIMARY KEY(id);
-ALTER TABLE scope ADD CONSTRAINT uk_scope_resource_scope UNIQUE (resource, scope);
+ALTER TABLE scope ADD CONSTRAINT uk_scope_scope UNIQUE (scope);
 -- ----------------------------
 -- Comment for table scope
 -- ----------------------------
@@ -35,9 +35,9 @@ CREATE TABLE user_account (
 	account_non_expired boolean NOT NULL,
 	account_non_locked boolean NOT NULL,
 	credentials_non_expired boolean NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -63,9 +63,9 @@ CREATE TABLE user_group (
 	id varchar(10) NOT NULL,
 	"name" varchar(50) NOT NULL,
 	code varchar(20) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -87,9 +87,9 @@ CREATE TABLE user_group_member (
 	id varchar(10) NOT NULL,
 	user_group_id varchar(10) NOT NULL,
 	user_id varchar(10) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -113,9 +113,9 @@ CREATE TABLE user_group_scope (
 	id varchar(10) NOT NULL,
 	user_group_id varchar(10) NOT NULL,
 	scope_id varchar(10) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -142,9 +142,9 @@ CREATE TABLE oauth2_client (
 	client_secret varchar(200) DEFAULT NULL,
 	client_secret_expires_at timestamp DEFAULT NULL,
 	client_name varchar(200) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -169,9 +169,9 @@ CREATE TABLE oauth2_client_authentication_method (
 	id varchar(10) NOT NULL,
 	oauth2_client_id varchar(10) NOT NULL,
 	authentication_method varchar(20) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -194,9 +194,9 @@ CREATE TABLE oauth2_client_grant_type (
 	id varchar(10) NOT NULL,
 	oauth2_client_id varchar(10) NOT NULL,
 	grant_type varchar(20) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -219,9 +219,9 @@ CREATE TABLE oauth2_client_redirect_uri (
 	id varchar(10) NOT NULL,
 	oauth2_client_id varchar(10) NOT NULL,
 	redirect_uri varchar(50) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
@@ -238,7 +238,7 @@ COMMENT ON COLUMN oauth2_client_redirect_uri.oauth2_client_id IS 'OAuth Client I
 COMMENT ON COLUMN oauth2_client_redirect_uri.redirect_uri IS 'Redirection URL';
 
 -- ----------------------------
--- Table structure for user_group_scope
+-- Table structure for oauth2_client_setting
 -- ----------------------------
 CREATE TABLE oauth2_client_setting (
 	id varchar(10) NOT NULL,
@@ -246,19 +246,19 @@ CREATE TABLE oauth2_client_setting (
 	property_type varchar(20) NOT NULL,
 	property_name varchar(50) NOT NULL,
 	property_value varchar(100) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
--- Constraint for table user_group_member
+-- Constraint for table oauth2_client_setting
 -- ----------------------------
 ALTER TABLE oauth2_client_setting ADD CONSTRAINT pk_oauth2_client_setting_id PRIMARY KEY(id);
 ALTER TABLE oauth2_client_setting ADD CONSTRAINT uk_oauth2_client_setting_client_type_name UNIQUE (oauth2_client_id, property_type, property_name);
 ALTER TABLE oauth2_client_setting ADD CONSTRAINT fk_oauth2_client_setting_client FOREIGN KEY (oauth2_client_id) REFERENCES oauth2_client(id);
 -- ----------------------------
--- Comment for table user_group_member
+-- Comment for table oauth2_client_setting
 -- ----------------------------
 COMMENT ON TABLE oauth2_client_setting IS 'client config';
 COMMENT ON COLUMN oauth2_client_setting.oauth2_client_id IS 'OAuth Client ID';
@@ -273,26 +273,24 @@ CREATE TABLE oauth2_client_scope (
 	id varchar(10) NOT NULL,
 	oauth2_client_id varchar(10) NOT NULL,
 	scope_id varchar(10) NOT NULL,
-	created_by varchar(30) NOT NULL,
+	created_by varchar(30) DEFAULT NULL,
 	created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	last_modified_by varchar(30) NOT NULL,
+	last_modified_by varchar(30) DEFAULT NULL,
 	last_modified_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- ----------------------------
--- Constraint for table user_group_member
+-- Constraint for table oauth2_client_scope
 -- ----------------------------
 ALTER TABLE oauth2_client_scope ADD CONSTRAINT pk_oauth2_client_scope_id PRIMARY KEY(id);
 ALTER TABLE oauth2_client_scope ADD CONSTRAINT uk_oauth2_client_scope_client_scope UNIQUE (oauth2_client_id, scope_id);
 ALTER TABLE oauth2_client_scope ADD CONSTRAINT fk_oauth2_client_scope_client FOREIGN KEY (oauth2_client_id) REFERENCES oauth2_client(id);
 ALTER TABLE oauth2_client_scope ADD CONSTRAINT fk_oauth2_client_scope_scope FOREIGN KEY (scope_id) REFERENCES scope(id);
 -- ----------------------------
--- Comment for table user_group_member
+-- Comment for table oauth2_client_scope
 -- ----------------------------
 COMMENT ON TABLE oauth2_client_scope IS 'client scope';
 COMMENT ON COLUMN oauth2_client_scope.oauth2_client_id IS 'OAuth Client ID';
 COMMENT ON COLUMN oauth2_client_scope.scope_id IS 'scope ID';
-
-
 
 -- ----------------------------
 -- Table structure for oauth2_authorization
@@ -324,15 +322,15 @@ CREATE TABLE oauth2_authorization (
 	refresh_token_metadata varchar(2000) NULL
 );
 -- ----------------------------
--- Constraint for table user_group_member
+-- Constraint for table oauth2_authorization
 -- ----------------------------
 ALTER TABLE oauth2_authorization ADD CONSTRAINT pk_oauth2_authorization PRIMARY KEY(id);
 -- ----------------------------
--- Comment for table user_group_member
+-- Comment for table oauth2_authorization
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for user_group_scope
+-- Table structure for oauth2_authorization_consent
 -- ----------------------------
 CREATE TABLE oauth2_authorization_consent (
 	registered_client_id varchar(100) NOT NULL,
@@ -340,9 +338,9 @@ CREATE TABLE oauth2_authorization_consent (
 	authorities varchar(1000) NOT NULL
 );
 -- ----------------------------
--- Constraint for table user_group_member
+-- Constraint for table oauth2_authorization_consent
 -- ----------------------------
 ALTER TABLE oauth2_authorization_consent ADD CONSTRAINT pk_oauth2_authorization_consent PRIMARY KEY(registered_client_id, principal_name);
 -- ----------------------------
--- Comment for table user_group_member
+-- Comment for table oauth2_authorization_consent
 -- ----------------------------

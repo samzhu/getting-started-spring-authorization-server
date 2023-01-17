@@ -1,0 +1,930 @@
+databaseChangeLog:
+- changeSet:
+    id: 1673954686522-1
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_scope_id
+            name: id
+            remarks: unique value
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: resource
+            remarks: resources name
+            type: VARCHAR(50)
+        - column:
+            constraints:
+              nullable: false
+            name: scope
+            remarks: scope code
+            type: VARCHAR(50)
+        - column:
+            constraints:
+              nullable: false
+            name: description
+            type: VARCHAR(50)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: resource scope
+        tableName: scope
+- changeSet:
+    id: 1673954686522-2
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_user_account_id
+            name: id
+            type: VARCHAR(36)
+        - column:
+            constraints:
+              nullable: false
+            name: user_account
+            remarks: user account
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            name: user_password
+            remarks: user password
+            type: VARCHAR(60)
+        - column:
+            constraints:
+              nullable: false
+            name: enabled
+            remarks: enable
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: account_non_expired
+            remarks: expired
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: account_non_locked
+            remarks: account locked
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: credentials_non_expired
+            remarks: certificate has expired
+            type: BOOLEAN
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: Account information
+        tableName: user_account
+- changeSet:
+    id: 1673954686522-3
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_user_group_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            remarks: Group name
+            type: VARCHAR(50)
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            remarks: Group code
+            type: VARCHAR(20)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: User Group
+        tableName: user_group
+- changeSet:
+    id: 1673954686522-4
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_user_group_member_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: user_group_id
+            remarks: Group ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            remarks: Account ID
+            type: VARCHAR(10)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: User group corresponding data
+        tableName: user_group_member
+- changeSet:
+    id: 1673954686522-5
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_user_group_scope_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: user_group_id
+            remarks: Group ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: scope_id
+            remarks: Scope ID
+            type: VARCHAR(10)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: Group permissions data
+        tableName: user_group_scope
+- changeSet:
+    id: 1673954686522-6
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_client_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: client_id
+            remarks: Client account
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: client_id_issued_at
+            remarks: issuing time
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: client_secret
+            remarks: secret
+            type: VARCHAR(200)
+        - column:
+            name: client_secret_expires_at
+            remarks: Secret expiration time
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: client_name
+            remarks: name
+            type: VARCHAR(200)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: OAuth Client
+        tableName: oauth2_client
+- changeSet:
+    id: 1673954686522-7
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_client_authentication_method_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: oauth2_client_id
+            remarks: OAuth Client ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: authentication_method
+            remarks: verification method
+            type: VARCHAR(20)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: oauth client verification method
+        tableName: oauth2_client_authentication_method
+- changeSet:
+    id: 1673954686522-8
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_client_grant_type_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: oauth2_client_id
+            remarks: OAuth Client ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: grant_type
+            remarks: Authorization method
+            type: VARCHAR(20)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: oauth client authorization method
+        tableName: oauth2_client_grant_type
+- changeSet:
+    id: 1673954686522-9
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_client_redirect_uri_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: oauth2_client_id
+            remarks: OAuth Client ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: redirect_uri
+            remarks: Redirection URL
+            type: VARCHAR(50)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: oauth client redirection URL
+        tableName: oauth2_client_redirect_uri
+- changeSet:
+    id: 1673954686522-10
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_client_setting_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: oauth2_client_id
+            remarks: OAuth Client ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: property_type
+            remarks: Type of setting
+            type: VARCHAR(20)
+        - column:
+            constraints:
+              nullable: false
+            name: property_name
+            remarks: Attribute name
+            type: VARCHAR(50)
+        - column:
+            constraints:
+              nullable: false
+            name: property_value
+            remarks: Attribute value
+            type: VARCHAR(100)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: client config
+        tableName: oauth2_client_setting
+- changeSet:
+    id: 1673954686522-11
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_client_scope_id
+            name: id
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: oauth2_client_id
+            remarks: OAuth Client ID
+            type: VARCHAR(10)
+        - column:
+            constraints:
+              nullable: false
+            name: scope_id
+            remarks: scope ID
+            type: VARCHAR(10)
+        - column:
+            defaultValue: NULL::character varying
+            name: created_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: NULL::character varying
+            name: last_modified_by
+            type: VARCHAR(30)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: last_modified_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        remarks: client scope
+        tableName: oauth2_client_scope
+- changeSet:
+    id: 1673954686522-12
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: scope
+        constraintName: uk_scope_scope
+        tableName: scope
+- changeSet:
+    id: 1673954686522-13
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: user_account
+        constraintName: uk_user_account_user_account
+        tableName: user_account
+- changeSet:
+    id: 1673954686522-14
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: uk_user_group_code
+        tableName: user_group
+- changeSet:
+    id: 1673954686522-15
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: user_group_id, user_id
+        constraintName: uk_user_group_member_group_user
+        tableName: user_group_member
+- changeSet:
+    id: 1673954686522-16
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: user_group_id, scope_id
+        constraintName: uk_user_group_scope_group_scope
+        tableName: user_group_scope
+- changeSet:
+    id: 1673954686522-17
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: client_id
+        constraintName: uk_oauth2_client_client_id
+        tableName: oauth2_client
+- changeSet:
+    id: 1673954686522-18
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: oauth2_client_id, authentication_method
+        constraintName: uk_oauth2_client_authentication_method_client_method
+        tableName: oauth2_client_authentication_method
+- changeSet:
+    id: 1673954686522-19
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: oauth2_client_id, grant_type
+        constraintName: uk_oauth2_client_grant_type_client_id_grant_type
+        tableName: oauth2_client_grant_type
+- changeSet:
+    id: 1673954686522-20
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: oauth2_client_id, redirect_uri
+        constraintName: uk_oauth2_client_redirect_uri_client_uri
+        tableName: oauth2_client_redirect_uri
+- changeSet:
+    id: 1673954686522-21
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: oauth2_client_id, property_type, property_name
+        constraintName: uk_oauth2_client_setting_client_type_name
+        tableName: oauth2_client_setting
+- changeSet:
+    id: 1673954686522-22
+    author: samzhu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: oauth2_client_id, scope_id
+        constraintName: uk_oauth2_client_scope_client_scope
+        tableName: oauth2_client_scope
+- changeSet:
+    id: 1673954686522-23
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_authorization
+            name: id
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+            name: registered_client_id
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+            name: principal_name
+            type: VARCHAR(200)
+        - column:
+            constraints:
+              nullable: false
+            name: authorization_grant_type
+            type: VARCHAR(100)
+        - column:
+            name: attributes
+            type: VARCHAR(4000)
+        - column:
+            name: state
+            type: VARCHAR(500)
+        - column:
+            name: authorization_code_value
+            type: TEXT
+        - column:
+            name: authorization_code_issued_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: authorization_code_expires_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: authorization_code_metadata
+            type: VARCHAR(2000)
+        - column:
+            name: access_token_value
+            type: TEXT
+        - column:
+            name: access_token_issued_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: access_token_expires_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: access_token_metadata
+            type: VARCHAR(2000)
+        - column:
+            name: access_token_type
+            type: VARCHAR(100)
+        - column:
+            name: access_token_scopes
+            type: VARCHAR(1000)
+        - column:
+            name: oidc_id_token_value
+            type: TEXT
+        - column:
+            name: oidc_id_token_issued_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: oidc_id_token_expires_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: oidc_id_token_metadata
+            type: VARCHAR(2000)
+        - column:
+            name: refresh_token_value
+            type: TEXT
+        - column:
+            name: refresh_token_issued_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: refresh_token_expires_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: refresh_token_metadata
+            type: VARCHAR(2000)
+        tableName: oauth2_authorization
+- changeSet:
+    id: 1673954686522-24
+    author: samzhu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_authorization_consent
+            name: registered_client_id
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: pk_oauth2_authorization_consent
+            name: principal_name
+            type: VARCHAR(200)
+        - column:
+            constraints:
+              nullable: false
+            name: authorities
+            type: VARCHAR(1000)
+        tableName: oauth2_authorization_consent
+- changeSet:
+    id: 1673954686522-25
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: oauth2_client_id
+        baseTableName: oauth2_client_authentication_method
+        constraintName: fk_oauth2_client_authentication_method
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: oauth2_client
+        validate: true
+- changeSet:
+    id: 1673954686522-26
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: oauth2_client_id
+        baseTableName: oauth2_client_grant_type
+        constraintName: fk_oauth2_client_grant_type_oauth2_client_id
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: oauth2_client
+        validate: true
+- changeSet:
+    id: 1673954686522-27
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: oauth2_client_id
+        baseTableName: oauth2_client_redirect_uri
+        constraintName: fk_oauth2_client_redirect_uri_client
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: oauth2_client
+        validate: true
+- changeSet:
+    id: 1673954686522-28
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: oauth2_client_id
+        baseTableName: oauth2_client_scope
+        constraintName: fk_oauth2_client_scope_client
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: oauth2_client
+        validate: true
+- changeSet:
+    id: 1673954686522-29
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: scope_id
+        baseTableName: oauth2_client_scope
+        constraintName: fk_oauth2_client_scope_scope
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: scope
+        validate: true
+- changeSet:
+    id: 1673954686522-30
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: oauth2_client_id
+        baseTableName: oauth2_client_setting
+        constraintName: fk_oauth2_client_setting_client
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: oauth2_client
+        validate: true
+- changeSet:
+    id: 1673954686522-31
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_group_id
+        baseTableName: user_group_member
+        constraintName: fk_user_group_member_group
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_group
+        validate: true
+- changeSet:
+    id: 1673954686522-32
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_group_member
+        constraintName: fk_user_group_member_user
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: scope
+        validate: true
+- changeSet:
+    id: 1673954686522-33
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_group_id
+        baseTableName: user_group_scope
+        constraintName: fk_user_group_scope_group
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_group
+        validate: true
+- changeSet:
+    id: 1673954686522-34
+    author: samzhu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: scope_id
+        baseTableName: user_group_scope
+        constraintName: fk_user_group_scope_scope
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_group
+        validate: true
+

@@ -1,15 +1,5 @@
 databaseChangeLog:
-  - preConditions:
-    - onFail: WARN
-    - sqlCheck:
-        expectedResult: 0
-        sql: select count(*) from DATABASECHANGELOGLOCK
   - include:
-      file: db/changelog/history/changelog-1.0.0.yaml
-      description: User, Role and scope 
-  - include:
-      file: db/changelog/history/changelog-1.1.0.yaml
-      description: OAuth client tables
-  - include:
-      file: db/changelog/history/changelog-1.2.0.yaml
-      description: Authorization tables
+      file: history/changelog-init.yaml
+      relativeToChangelogFile: true
+      description: 初始化表格
