@@ -1,6 +1,5 @@
 package com.example.demo.security;
 
-
 import com.example.demo.config.OAuthSettingNames;
 import com.example.demo.entites.Oauth2ClientAuthenticationMethodEntity;
 import com.example.demo.entites.Oauth2ClientEntity;
@@ -8,14 +7,14 @@ import com.example.demo.entites.Oauth2ClientGrantTypeEntity;
 import com.example.demo.entites.Oauth2ClientRedirectUriEntity;
 import com.example.demo.entites.Oauth2ClientScopeEntity;
 import com.example.demo.entites.Oauth2ClientSettingEntity;
-import com.example.demo.entites.ResourceScopeEntity;
+import com.example.demo.infrastructure.repositories.ScopeRepository;
+import com.example.demo.infrastructure.repositories.tables.pojos.Scope;
 import com.example.demo.repositories.Oauth2ClientAuthenticationMethodEntityRepository;
 import com.example.demo.repositories.Oauth2ClientEntityRepository;
 import com.example.demo.repositories.Oauth2ClientGrantTypeEntityRepository;
 import com.example.demo.repositories.Oauth2ClientRedirectUriEntityRepository;
 import com.example.demo.repositories.Oauth2ClientScopeEntityRepository;
 import com.example.demo.repositories.Oauth2ClientSettingEntityRepository;
-import com.example.demo.repositories.ResourceScopeEntityRepository;
 import java.time.Duration;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -45,7 +44,7 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
   private Oauth2ClientRedirectUriEntityRepository oauth2ClientRedirectUriEntityRepository;
   private Oauth2ClientScopeEntityRepository oauth2ClientScopeEntityRepository;
   private Oauth2ClientSettingEntityRepository oauth2ClientSettingEntityRepository;
-  private ResourceScopeEntityRepository resourceScopeEntityRepository;
+  private ScopeRepository scopeRepository;
 
   @Override
   public void save(RegisteredClient registeredClient) {
@@ -102,8 +101,8 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
             .map(Oauth2ClientScopeEntity::getResourceScopeId)
             .collect(Collectors.toList());
     List<String> clientScopes =
-        resourceScopeEntityRepository.findByIdIn(authorityIds).stream()
-            .map(ResourceScopeEntity::getScope)
+        scopeRepository.findByIdIn(authorityIds).stream()
+            .map(Scope::getScope)
             .collect(Collectors.toList());
     // @formatter:off
     RegisteredClient.Builder builder =
