@@ -19,3 +19,6 @@ Version info
 | --- | --- |
 | SpringBoot | 2.5.6 |
 | PostgreSQL | 13.3 |
+
+
+要加 ID 在 src/main/java/com/example/demo/infrastructure/repositories/tables/pojos/Oauth2AuthorizationConsent.java  

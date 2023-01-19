@@ -3,7 +3,6 @@
  */
 package com.example.demo.infrastructure.repositories.tables.pojos;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -42,7 +41,7 @@ import javax.persistence.Version;
     name = "user_account",
     schema = "public",
     uniqueConstraints = {
-        @UniqueConstraint(name = "uk_user_account_user_account", columnNames = { "user_account" })
+        @UniqueConstraint(name = "uk_user_account_user_name", columnNames = { "user_name" })
     }
 )
 public class UserAccount implements Serializable, Persistable<String> {
@@ -55,10 +54,10 @@ public class UserAccount implements Serializable, Persistable<String> {
     @Size(max = 36)
     private String        id;
 
-    @Column(name = "user_account", nullable = false, length = 30)
+    @Column(name = "user_name", nullable = false, length = 30)
     @NotNull
     @Size(max = 30)
-    private String        userAccount;
+    private String        userName;
 
     @Column(name = "user_password", nullable = false, length = 60)
     @NotNull
@@ -115,11 +114,11 @@ public class UserAccount implements Serializable, Persistable<String> {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.userAccount == null) {
-            if (other.userAccount != null)
+        if (this.userName == null) {
+            if (other.userName != null)
                 return false;
         }
-        else if (!this.userAccount.equals(other.userAccount))
+        else if (!this.userName.equals(other.userName))
             return false;
         if (this.userPassword == null) {
             if (other.userPassword != null)
@@ -183,7 +182,7 @@ public class UserAccount implements Serializable, Persistable<String> {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.userAccount == null) ? 0 : this.userAccount.hashCode());
+        result = prime * result + ((this.userName == null) ? 0 : this.userName.hashCode());
         result = prime * result + ((this.userPassword == null) ? 0 : this.userPassword.hashCode());
         result = prime * result + ((this.enabled == null) ? 0 : this.enabled.hashCode());
         result = prime * result + ((this.accountNonExpired == null) ? 0 : this.accountNonExpired.hashCode());

@@ -26,16 +26,16 @@ import org.springframework.security.oauth2.server.authorization.config.ProviderS
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import com.example.demo.infrastructure.repositories.Oauth2ClientAuthenticationMethodRepository;
+import com.example.demo.infrastructure.repositories.Oauth2ClientGrantTypeRepository;
+import com.example.demo.infrastructure.repositories.Oauth2ClientRedirectUriRepository;
+import com.example.demo.infrastructure.repositories.Oauth2ClientRepository;
+import com.example.demo.infrastructure.repositories.Oauth2ClientScopeRepository;
+import com.example.demo.infrastructure.repositories.Oauth2ClientSettingRepository;
 import com.example.demo.infrastructure.repositories.ScopeRepository;
-import com.example.demo.repositories.Oauth2ClientAuthenticationMethodEntityRepository;
-import com.example.demo.repositories.Oauth2ClientEntityRepository;
-import com.example.demo.repositories.Oauth2ClientGrantTypeEntityRepository;
-import com.example.demo.repositories.Oauth2ClientRedirectUriEntityRepository;
-import com.example.demo.repositories.Oauth2ClientScopeEntityRepository;
-import com.example.demo.repositories.Oauth2ClientSettingEntityRepository;
-import com.example.demo.repositories.UserAccountEntityRepository;
-import com.example.demo.repositories.UserGroupEntityRepository;
-import com.example.demo.repositories.UserGroupMemberEntityRepository;
+import com.example.demo.infrastructure.repositories.UserAccountRepository;
+import com.example.demo.infrastructure.repositories.UserGroupMemberRepository;
+import com.example.demo.infrastructure.repositories.UserGroupRepository;
 import com.example.demo.security.CustomOAuth2Token;
 import com.example.demo.security.CustomRegisteredClientRepository;
 import com.example.demo.security.CustomUserDetailsAuthenticationProvider;
@@ -87,15 +87,15 @@ public class AuthorizationServerConfig {
 
   @Bean
   public RegisteredClientRepository registeredClientRepository(
-      Oauth2ClientEntityRepository oauth2ClientEntityRepository,
-      Oauth2ClientAuthenticationMethodEntityRepository oauth2ClientAuthenticationMethodEntityRepository,
-      Oauth2ClientGrantTypeEntityRepository oauth2ClientGrantTypeRepository,
-      Oauth2ClientRedirectUriEntityRepository oauth2ClientRedirectUriRepository,
-      Oauth2ClientScopeEntityRepository oauth2ClientScopeRepository,
-      Oauth2ClientSettingEntityRepository oauth2ClientSettingRepository,
+      Oauth2ClientRepository oauth2ClientRepository,
+      Oauth2ClientAuthenticationMethodRepository oauth2ClientAuthenticationMethodRepository,
+      Oauth2ClientGrantTypeRepository oauth2ClientGrantTypeRepository,
+      Oauth2ClientRedirectUriRepository oauth2ClientRedirectUriRepository,
+      Oauth2ClientScopeRepository oauth2ClientScopeRepository,
+      Oauth2ClientSettingRepository oauth2ClientSettingRepository,
       ScopeRepository scopeRepository) {
     RegisteredClientRepository registeredClientRepository = new CustomRegisteredClientRepository(
-        oauth2ClientEntityRepository, oauth2ClientAuthenticationMethodEntityRepository, oauth2ClientGrantTypeRepository,
+      oauth2ClientRepository, oauth2ClientAuthenticationMethodRepository, oauth2ClientGrantTypeRepository,
         oauth2ClientRedirectUriRepository, oauth2ClientScopeRepository, oauth2ClientSettingRepository,
         scopeRepository);
     return registeredClientRepository;
@@ -107,23 +107,26 @@ public class AuthorizationServerConfig {
   }
 
   @Bean
-  public UserDetailsService userDetailsService(UserAccountEntityRepository userAccountRepository,
-      UserGroupMemberEntityRepository userGroupMemberRepository, UserGroupEntityRepository userGroupRepository) {
+  public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository,
+      UserGroupMemberRepository userGroupMemberRepository, UserGroupRepository userGroupRepository) {
     return new CustomUserDetailsService(userAccountRepository, userGroupMemberRepository, userGroupRepository);
   }
 
   @Bean
-	public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,RegisteredClientRepository registeredClientRepository) {
-		return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
-	}
-  
+  public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,
+      RegisteredClientRepository registeredClientRepository) {
+    return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+  }
+
   // @Bean
-	// public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate,
-	// 		RegisteredClientRepository registeredClientRepository) {
-	// 	// DefaultLobHandler lobHandler = new DefaultLobHandler();
-	// 	// lobHandler.setWrapAsLob(true);
-	// 	return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository);
-	// }
+  // public OAuth2AuthorizationService authorizationService(JdbcTemplate
+  // jdbcTemplate,
+  // RegisteredClientRepository registeredClientRepository) {
+  // // DefaultLobHandler lobHandler = new DefaultLobHandler();
+  // // lobHandler.setWrapAsLob(true);
+  // return new JdbcOAuth2AuthorizationService(jdbcTemplate,
+  // registeredClientRepository);
+  // }
 
   @Bean
   public AbstractUserDetailsAuthenticationProvider abstractUserDetailsAuthenticationProvider(
@@ -133,17 +136,20 @@ public class AuthorizationServerConfig {
 
   // @Bean
   // public OAuth2AuthorizationService authorizationService(
-  //     Oauth2AuthorizationEntityRepository oauth2AuthorizationEntityRepository,
-  //     RegisteredClientRepository registeredClientRepository) {
-  //   OAuth2AuthorizationService OAuth2AuthorizationService = new CustomOAuth2AuthorizationService(
-  //       oauth2AuthorizationEntityRepository, registeredClientRepository);
-  //   return OAuth2AuthorizationService;
+  // Oauth2AuthorizationEntityRepository oauth2AuthorizationEntityRepository,
+  // RegisteredClientRepository registeredClientRepository) {
+  // OAuth2AuthorizationService OAuth2AuthorizationService = new
+  // CustomOAuth2AuthorizationService(
+  // oauth2AuthorizationEntityRepository, registeredClientRepository);
+  // return OAuth2AuthorizationService;
   // }
 
   // @Bean
-  // public OAuth2AuthorizationConsentService authorizationConsentService(JdbcTemplate jdbcTemplate,
-  //     RegisteredClientRepository registeredClientRepository) {
-  //   return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository);
+  // public OAuth2AuthorizationConsentService
+  // authorizationConsentService(JdbcTemplate jdbcTemplate,
+  // RegisteredClientRepository registeredClientRepository) {
+  // return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate,
+  // registeredClientRepository);
   // }
 
   @Bean

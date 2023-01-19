@@ -1,20 +1,10 @@
 package com.example.demo.security;
 
-
-import com.example.demo.entites.UserAccountEntity;
-import com.example.demo.entites.UserGroupEntity;
-import com.example.demo.entites.UserGroupMemberEntity;
-import com.example.demo.repositories.UserAccountEntityRepository;
-import com.example.demo.repositories.UserGroupEntityRepository;
-import com.example.demo.repositories.UserGroupMemberEntityRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -23,25 +13,34 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.example.demo.infrastructure.repositories.UserAccountRepository;
+import com.example.demo.infrastructure.repositories.UserGroupMemberRepository;
+import com.example.demo.infrastructure.repositories.UserGroupRepository;
+import com.example.demo.infrastructure.repositories.tables.pojos.UserAccount;
+import com.example.demo.infrastructure.repositories.tables.pojos.UserGroup;
+import com.example.demo.infrastructure.repositories.tables.pojos.UserGroupMember;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-  private UserAccountEntityRepository userAccountRepository;
-  private UserGroupMemberEntityRepository userGroupMemberRepository;
-  private UserGroupEntityRepository userGroupRepository;
+  private UserAccountRepository userAccountRepository;
+  private UserGroupMemberRepository userGroupMemberRepository;
+  private UserGroupRepository userGroupRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     log.debug(">> CustomUserDetailsService.loadUserByUsername username={}", username);
     User userDetails = null;
-    Optional<UserAccountEntity> userOptional = userAccountRepository.findByUserName(username);
+    Optional<UserAccount> userOptional = userAccountRepository.findByUserName(username);
     // Not found...
     userOptional.orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
-    UserAccountEntity user = userOptional.get();
-    List<UserGroupMemberEntity> userGroupMembers =
+    UserAccount user = userOptional.get();
+    List<UserGroupMember> userGroupMembers =
         userGroupMemberRepository.findByUserId(user.getId());
     if (userGroupMembers.size() == 0) {
       userDetails =
@@ -56,11 +55,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     } else {
       List<String> userGroupIds =
           userGroupMembers.stream()
-              .map(UserGroupMemberEntity::getUserGroupId)
+              .map(UserGroupMember::getUserGroupId)
               .collect(Collectors.toList());
-      List<UserGroupEntity> userGroups = userGroupRepository.findByIdIn(userGroupIds);
+      List<UserGroup> userGroups = userGroupRepository.findByIdIn(userGroupIds);
       Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-      for (UserGroupEntity userGroup : userGroups) {
+      for (UserGroup userGroup : userGroups) {
         grantedAuthorities.add(new SimpleGrantedAuthority(userGroup.getCode()));
       }
       userDetails =

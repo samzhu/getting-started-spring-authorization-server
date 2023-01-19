@@ -29,7 +29,7 @@ COMMENT ON COLUMN scope.scope IS 'scope code';
 -- ----------------------------
 CREATE TABLE user_account (
 	id varchar(36) NOT NULL,
-	user_account varchar(30) NOT NULL,
+	user_name varchar(30) NOT NULL,
 	user_password varchar(60) NOT NULL,
 	enabled boolean NOT NULL,
 	account_non_expired boolean NOT NULL,
@@ -44,12 +44,12 @@ CREATE TABLE user_account (
 -- Constraint for table user_account
 -- ----------------------------
 ALTER TABLE user_account ADD CONSTRAINT pk_user_account_id PRIMARY KEY(id);
-ALTER TABLE user_account ADD CONSTRAINT uk_user_account_user_account UNIQUE (user_account);
+ALTER TABLE user_account ADD CONSTRAINT uk_user_account_user_name UNIQUE (user_name);
 -- ----------------------------
 -- Comment for table user_account
 -- ----------------------------
 COMMENT ON TABLE user_account IS 'Account information';
-COMMENT ON COLUMN user_account.user_account IS 'user account';
+COMMENT ON COLUMN user_account.user_name IS 'user name';
 COMMENT ON COLUMN user_account.user_password IS 'user password';
 COMMENT ON COLUMN user_account.enabled IS 'enable';
 COMMENT ON COLUMN user_account.account_non_expired IS 'expired';
@@ -124,7 +124,7 @@ CREATE TABLE user_group_scope (
 ALTER TABLE user_group_scope ADD CONSTRAINT pk_user_group_scope_id PRIMARY KEY(id);
 ALTER TABLE user_group_scope ADD CONSTRAINT uk_user_group_scope_group_scope UNIQUE (user_group_id, scope_id);
 ALTER TABLE user_group_scope ADD CONSTRAINT fk_user_group_scope_group FOREIGN KEY (user_group_id) REFERENCES user_group(id);
-ALTER TABLE user_group_scope ADD CONSTRAINT fk_user_group_scope_scope FOREIGN KEY (scope_id) REFERENCES user_group(id);
+ALTER TABLE user_group_scope ADD CONSTRAINT fk_user_group_scope_scope FOREIGN KEY (scope_id) REFERENCES scope(id);
 -- ----------------------------
 -- Comment for table user_group_member
 -- ----------------------------

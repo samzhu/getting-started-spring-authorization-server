@@ -3,7 +3,6 @@
  */
 package com.example.demo.infrastructure.repositories.tables.pojos;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
