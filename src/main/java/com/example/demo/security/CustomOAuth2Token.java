@@ -2,9 +2,10 @@ package com.example.demo.security;
 
 
 import java.util.UUID;
+
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.server.authorization.JwtEncodingContext;
-import org.springframework.security.oauth2.server.authorization.OAuth2TokenCustomizer;
 
 @Slf4j
 public class CustomOAuth2Token implements OAuth2TokenCustomizer<JwtEncodingContext> {

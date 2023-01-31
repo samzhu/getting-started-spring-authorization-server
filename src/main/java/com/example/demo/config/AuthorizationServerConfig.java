@@ -13,16 +13,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.JwtEncodingContext;
+
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.OAuth2TokenCustomizer;
+
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -44,6 +47,8 @@ import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+
+//TODO: 要改新寫法 https://github.com/spring-projects/spring-authorization-server/blob/main/samples/custom-consent-authorizationserver/src/main/java/sample/config/AuthorizationServerConfig.java
 
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
@@ -72,14 +77,16 @@ public class AuthorizationServerConfig {
     // Original page
     // OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
     // return http.formLogin(Customizer.withDefaults()).build();
+    OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
+				new OAuth2AuthorizationServerConfigurer();
 
-    OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer<>();
+    // OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer<>();
     authorizationServerConfigurer
         .authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint.consentPage(CUSTOM_CONSENT_PAGE_URI));
 
     RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
 
-    http.requestMatcher(endpointsMatcher)
+    http.securityMatcher(endpointsMatcher)
         .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
         .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher)).apply(authorizationServerConfigurer);
     return http.formLogin(Customizer.withDefaults()).build();
@@ -161,8 +168,8 @@ public class AuthorizationServerConfig {
   }
 
   @Bean
-  public ProviderSettings providerSettings() {
-    return ProviderSettings.builder().issuer(issuer).build();
+  public AuthorizationServerSettings providerSettings() {
+    return AuthorizationServerSettings.builder().issuer(issuer).build();
   }
 
   @Bean

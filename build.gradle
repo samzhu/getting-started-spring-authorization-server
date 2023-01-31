@@ -1,7 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.0'
-	id 'java'
+  id 'java'
+  id 'org.springframework.boot' version '3.0.2'
+  id 'io.spring.dependency-management' version '1.1.0'
+  id 'com.google.cloud.artifactregistry.gradle-plugin' version '2.2.0'
 }
 
 group = 'io.github'
@@ -19,6 +20,7 @@ repositories {
 }
 
 ext {
+  set('springCloudVersion', "2022.0.1")
   set('testcontainersVersion', "1.17.6")
 }
 
@@ -29,7 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.liquibase:liquibase-core'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.1.RELEASE'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
@@ -44,7 +46,7 @@ dependencies {
 	// https://search.maven.org/artifact/org.springframework.security/spring-security-oauth2-authorization-server
 	implementation 'com.nimbusds:nimbus-jose-jwt:9.28'
 	// https://search.maven.org/artifact/com.nimbusds/nimbus-jose-jwt
-	// implementation 'org.bouncycastle:bcjmail-jdk15to18:1.69'
+	implementation 'org.bouncycastle:bcjmail-jdk15to18:1.69'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:postgresql'
 }
@@ -52,9 +54,13 @@ dependencies {
 dependencyManagement {
   imports {
     mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
   }
+  dependencies {
+        dependency 'org.yaml:snakeyaml:1.33'
+    }
 }
 
-test {
-	useJUnitPlatform()
+tasks.named('test') {
+  useJUnitPlatform()
 }

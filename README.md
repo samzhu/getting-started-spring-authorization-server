@@ -22,3 +22,7 @@ Version info
 
 
 要加 ID 在 src/main/java/com/example/demo/infrastructure/repositories/tables/pojos/Oauth2AuthorizationConsent.java  
+
+https://github.com/spring-projects/spring-authorization-server/blob/main/samples/custom-consent-authorizationserver/src/main/java/sample/config/AuthorizationServerConfig.java
+
+https://github.com/spring-projects/spring-authorization-server/blob/main/docs/src/docs/asciidoc/protocol-endpoints.adoc

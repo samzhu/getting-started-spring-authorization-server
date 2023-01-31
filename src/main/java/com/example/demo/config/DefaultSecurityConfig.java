@@ -19,7 +19,7 @@ public class DefaultSecurityConfig {
 		// return http.build();
 
     http.authorizeRequests()
-        .antMatchers("/images/*")
+        .requestMatchers("/images/*")
         .permitAll()
         .and()
         .formLogin()
