@@ -21,7 +21,7 @@ INSERT INTO oauth2_client_authentication_method(id, oauth2_client_id, authentica
 ('1', '1', 'client_secret_post'), ('2', '1', 'client_secret_basic');
 
 INSERT INTO oauth2_client_grant_type(id, oauth2_client_id, grant_type) VALUES
-('1', '1', ''), ('2', '1', 'refresh_token'), ('3', '1', 'client_credentials');
+('1', '1', 'authorization_code'), ('2', '1', 'refresh_token'), ('3', '1', 'client_credentials');
 
 INSERT INTO oauth2_client_redirect_uri(id, oauth2_client_id, redirect_uri) VALUES
 ('1', '1', 'https://oidcdebugger.com/debug');

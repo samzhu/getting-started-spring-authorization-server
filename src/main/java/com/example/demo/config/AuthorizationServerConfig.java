@@ -77,10 +77,11 @@ public class AuthorizationServerConfig {
     // Original page
     // OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
     // return http.formLogin(Customizer.withDefaults()).build();
-    OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
-				new OAuth2AuthorizationServerConfigurer();
+    OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
 
-    // OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer<>();
+    // OAuth2AuthorizationServerConfigurer<HttpSecurity>
+    // authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer<>();
+
     authorizationServerConfigurer
         .authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint.consentPage(CUSTOM_CONSENT_PAGE_URI));
 
@@ -102,7 +103,7 @@ public class AuthorizationServerConfig {
       Oauth2ClientSettingRepository oauth2ClientSettingRepository,
       ScopeRepository scopeRepository) {
     RegisteredClientRepository registeredClientRepository = new CustomRegisteredClientRepository(
-      oauth2ClientRepository, oauth2ClientAuthenticationMethodRepository, oauth2ClientGrantTypeRepository,
+        oauth2ClientRepository, oauth2ClientAuthenticationMethodRepository, oauth2ClientGrantTypeRepository,
         oauth2ClientRedirectUriRepository, oauth2ClientScopeRepository, oauth2ClientSettingRepository,
         scopeRepository);
     return registeredClientRepository;
@@ -149,14 +150,6 @@ public class AuthorizationServerConfig {
   // CustomOAuth2AuthorizationService(
   // oauth2AuthorizationEntityRepository, registeredClientRepository);
   // return OAuth2AuthorizationService;
-  // }
-
-  // @Bean
-  // public OAuth2AuthorizationConsentService
-  // authorizationConsentService(JdbcTemplate jdbcTemplate,
-  // RegisteredClientRepository registeredClientRepository) {
-  // return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate,
-  // registeredClientRepository);
   // }
 
   @Bean

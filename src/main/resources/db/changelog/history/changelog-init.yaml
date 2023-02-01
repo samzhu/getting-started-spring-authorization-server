@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1674112275682-1
+    id: 1675218473195-1
     author: samzhu (generated)
     changes:
     - createTable:
@@ -53,61 +53,7 @@ databaseChangeLog:
         remarks: resource scope
         tableName: scope
 - changeSet:
-    id: 1674112275682-2
-    author: samzhu (generated)
-    changes:
-    - insert:
-        columns:
-        - column:
-            name: id
-            value: '1'
-        - column:
-            name: resource
-            value: oauth
-        - column:
-            name: scope
-            value: openid
-        - column:
-            name: description
-            value: Identification
-        - column:
-            name: created_by
-        - column:
-            name: created_date
-            valueDate: 2023-01-19T14:34:54.339002
-        - column:
-            name: last_modified_by
-        - column:
-            name: last_modified_date
-            valueDate: 2023-01-19T14:34:54.339002
-        tableName: scope
-    - insert:
-        columns:
-        - column:
-            name: id
-            value: '2'
-        - column:
-            name: resource
-            value: user
-        - column:
-            name: scope
-            value: profile
-        - column:
-            name: description
-            value: Personal information
-        - column:
-            name: created_by
-        - column:
-            name: created_date
-            valueDate: 2023-01-19T14:34:54.339002
-        - column:
-            name: last_modified_by
-        - column:
-            name: last_modified_date
-            valueDate: 2023-01-19T14:34:54.339002
-        tableName: scope
-- changeSet:
-    id: 1674112275682-3
+    id: 1675218473195-2
     author: samzhu (generated)
     changes:
     - createTable:
@@ -178,47 +124,7 @@ databaseChangeLog:
         remarks: Account information
         tableName: user_account
 - changeSet:
-    id: 1674112275682-4
-    author: samzhu (generated)
-    changes:
-    - insert:
-        columns:
-        - column:
-            name: id
-            value: '1'
-        - column:
-            name: user_name
-            value: admin
-        - column:
-            name: user_password
-            value: $2a$10$oaeeokjBmMdYIRQBzz8cde2Z1CxPIE7kfStPI4WeKNwfItbYJxE/W
-        - column:
-            name: enabled
-            valueBoolean: true
-        - column:
-            name: account_non_expired
-            valueBoolean: false
-        - column:
-            name: account_non_locked
-            valueBoolean: false
-        - column:
-            name: credentials_non_expired
-            valueBoolean: false
-        - column:
-            name: created_by
-            value: NULL::character varying
-        - column:
-            name: created_date
-            valueDate: 2023-01-19T14:45:58.190463
-        - column:
-            name: last_modified_by
-            value: NULL::character varying
-        - column:
-            name: last_modified_date
-            valueDate: 2023-01-19T14:45:58.190463
-        tableName: user_account
-- changeSet:
-    id: 1674112275682-5
+    id: 1675218473195-3
     author: samzhu (generated)
     changes:
     - createTable:
@@ -265,35 +171,7 @@ databaseChangeLog:
         remarks: User Group
         tableName: user_group
 - changeSet:
-    id: 1674112275682-6
-    author: samzhu (generated)
-    changes:
-    - insert:
-        columns:
-        - column:
-            name: id
-            value: '1'
-        - column:
-            name: name
-            value: ADMIN
-        - column:
-            name: code
-            value: Manage groups
-        - column:
-            name: created_by
-            value: NULL::character varying
-        - column:
-            name: created_date
-            valueDate: 2023-01-19T14:47:49.837061
-        - column:
-            name: last_modified_by
-            value: NULL::character varying
-        - column:
-            name: last_modified_date
-            valueDate: 2023-01-19T14:47:49.837061
-        tableName: user_group
-- changeSet:
-    id: 1674112275682-7
+    id: 1675218473195-4
     author: samzhu (generated)
     changes:
     - createTable:
@@ -340,35 +218,7 @@ databaseChangeLog:
         remarks: User group corresponding data
         tableName: user_group_member
 - changeSet:
-    id: 1674112275682-8
-    author: samzhu (generated)
-    changes:
-    - insert:
-        columns:
-        - column:
-            name: id
-            value: '1'
-        - column:
-            name: user_group_id
-            value: '1'
-        - column:
-            name: user_id
-            value: '1'
-        - column:
-            name: created_by
-            value: NULL::character varying
-        - column:
-            name: created_date
-            valueDate: 2023-01-19T15:02:08.150491
-        - column:
-            name: last_modified_by
-            value: NULL::character varying
-        - column:
-            name: last_modified_date
-            valueDate: 2023-01-19T15:02:08.150491
-        tableName: user_group_member
-- changeSet:
-    id: 1674112275682-9
+    id: 1675218473195-5
     author: samzhu (generated)
     changes:
     - createTable:
@@ -431,7 +281,7 @@ databaseChangeLog:
         remarks: OAuth Client
         tableName: oauth2_client
 - changeSet:
-    id: 1674112275682-10
+    id: 1675218473195-6
     author: samzhu (generated)
     changes:
     - createTable:
@@ -478,7 +328,7 @@ databaseChangeLog:
         remarks: oauth client verification method
         tableName: oauth2_client_authentication_method
 - changeSet:
-    id: 1674112275682-11
+    id: 1675218473195-7
     author: samzhu (generated)
     changes:
     - createTable:
@@ -525,7 +375,7 @@ databaseChangeLog:
         remarks: oauth client authorization method
         tableName: oauth2_client_grant_type
 - changeSet:
-    id: 1674112275682-12
+    id: 1675218473195-8
     author: samzhu (generated)
     changes:
     - createTable:
@@ -572,7 +422,7 @@ databaseChangeLog:
         remarks: oauth client redirection URL
         tableName: oauth2_client_redirect_uri
 - changeSet:
-    id: 1674112275682-13
+    id: 1675218473195-9
     author: samzhu (generated)
     changes:
     - createTable:
@@ -631,7 +481,7 @@ databaseChangeLog:
         remarks: client config
         tableName: oauth2_client_setting
 - changeSet:
-    id: 1674112275682-14
+    id: 1675218473195-10
     author: samzhu (generated)
     changes:
     - createTable:
@@ -678,7 +528,7 @@ databaseChangeLog:
         remarks: client scope
         tableName: oauth2_client_scope
 - changeSet:
-    id: 1674112275682-15
+    id: 1675218473195-11
     author: samzhu (generated)
     changes:
     - createTable:
@@ -709,7 +559,7 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            defaultValueComputed: CURRENT_TIMESTAMP
+            defaultValueComputed: now()
             name: created_date
             type: TIMESTAMP WITHOUT TIME ZONE
         - column:
@@ -719,13 +569,13 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            defaultValueComputed: CURRENT_TIMESTAMP
+            defaultValueComputed: now()
             name: last_modified_date
             type: TIMESTAMP WITHOUT TIME ZONE
         remarks: Group permissions data
         tableName: user_group_scope
 - changeSet:
-    id: 1674112275682-16
+    id: 1675218473195-12
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -733,7 +583,7 @@ databaseChangeLog:
         constraintName: uk_scope_scope
         tableName: scope
 - changeSet:
-    id: 1674112275682-17
+    id: 1675218473195-13
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -741,7 +591,7 @@ databaseChangeLog:
         constraintName: uk_user_account_user_name
         tableName: user_account
 - changeSet:
-    id: 1674112275682-18
+    id: 1675218473195-14
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -749,7 +599,7 @@ databaseChangeLog:
         constraintName: uk_user_group_code
         tableName: user_group
 - changeSet:
-    id: 1674112275682-19
+    id: 1675218473195-15
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -757,7 +607,7 @@ databaseChangeLog:
         constraintName: uk_user_group_member_group_user
         tableName: user_group_member
 - changeSet:
-    id: 1674112275682-20
+    id: 1675218473195-16
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -765,7 +615,7 @@ databaseChangeLog:
         constraintName: uk_oauth2_client_client_id
         tableName: oauth2_client
 - changeSet:
-    id: 1674112275682-21
+    id: 1675218473195-17
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -773,7 +623,7 @@ databaseChangeLog:
         constraintName: uk_oauth2_client_authentication_method_client_method
         tableName: oauth2_client_authentication_method
 - changeSet:
-    id: 1674112275682-22
+    id: 1675218473195-18
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -781,7 +631,7 @@ databaseChangeLog:
         constraintName: uk_oauth2_client_grant_type_client_id_grant_type
         tableName: oauth2_client_grant_type
 - changeSet:
-    id: 1674112275682-23
+    id: 1675218473195-19
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -789,7 +639,7 @@ databaseChangeLog:
         constraintName: uk_oauth2_client_redirect_uri_client_uri
         tableName: oauth2_client_redirect_uri
 - changeSet:
-    id: 1674112275682-24
+    id: 1675218473195-20
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -797,7 +647,7 @@ databaseChangeLog:
         constraintName: uk_oauth2_client_setting_client_type_name
         tableName: oauth2_client_setting
 - changeSet:
-    id: 1674112275682-25
+    id: 1675218473195-21
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -805,7 +655,7 @@ databaseChangeLog:
         constraintName: uk_oauth2_client_scope_client_scope
         tableName: oauth2_client_scope
 - changeSet:
-    id: 1674112275682-26
+    id: 1675218473195-22
     author: samzhu (generated)
     changes:
     - addUniqueConstraint:
@@ -813,7 +663,7 @@ databaseChangeLog:
         constraintName: uk_user_group_scope_group_scope
         tableName: user_group_scope
 - changeSet:
-    id: 1674112275682-27
+    id: 1675218473195-23
     author: samzhu (generated)
     changes:
     - createTable:
@@ -902,7 +752,7 @@ databaseChangeLog:
             type: VARCHAR(2000)
         tableName: oauth2_authorization
 - changeSet:
-    id: 1674112275682-28
+    id: 1675218473195-24
     author: samzhu (generated)
     changes:
     - createTable:
@@ -928,7 +778,7 @@ databaseChangeLog:
             type: VARCHAR(1000)
         tableName: oauth2_authorization_consent
 - changeSet:
-    id: 1674112275682-29
+    id: 1675218473195-25
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -943,7 +793,7 @@ databaseChangeLog:
         referencedTableName: oauth2_client
         validate: true
 - changeSet:
-    id: 1674112275682-30
+    id: 1675218473195-26
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -958,7 +808,7 @@ databaseChangeLog:
         referencedTableName: oauth2_client
         validate: true
 - changeSet:
-    id: 1674112275682-31
+    id: 1675218473195-27
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -973,7 +823,7 @@ databaseChangeLog:
         referencedTableName: oauth2_client
         validate: true
 - changeSet:
-    id: 1674112275682-32
+    id: 1675218473195-28
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -988,7 +838,7 @@ databaseChangeLog:
         referencedTableName: oauth2_client
         validate: true
 - changeSet:
-    id: 1674112275682-33
+    id: 1675218473195-29
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -1003,7 +853,7 @@ databaseChangeLog:
         referencedTableName: scope
         validate: true
 - changeSet:
-    id: 1674112275682-34
+    id: 1675218473195-30
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -1018,7 +868,7 @@ databaseChangeLog:
         referencedTableName: oauth2_client
         validate: true
 - changeSet:
-    id: 1674112275682-35
+    id: 1675218473195-31
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -1033,7 +883,7 @@ databaseChangeLog:
         referencedTableName: user_group
         validate: true
 - changeSet:
-    id: 1674112275682-36
+    id: 1675218473195-32
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -1048,7 +898,7 @@ databaseChangeLog:
         referencedTableName: scope
         validate: true
 - changeSet:
-    id: 1674112275682-37
+    id: 1675218473195-33
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
@@ -1063,7 +913,7 @@ databaseChangeLog:
         referencedTableName: user_group
         validate: true
 - changeSet:
-    id: 1674112275682-38
+    id: 1675218473195-34
     author: samzhu (generated)
     changes:
     - addForeignKeyConstraint:
